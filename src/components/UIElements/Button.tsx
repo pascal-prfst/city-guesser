@@ -5,7 +5,14 @@ import { ButtonProps } from "../../../types/types";
 
 function Button({ children, to, onClick, inverted, disabled }: ButtonProps) {
   if (to) {
-    return <Link to={to}>{children}</Link>;
+    return (
+      <div className={classes.button_container}>
+        <Link className={`${classes.button} ${classes.link}`} to={to}>
+          {children}
+        </Link>
+        <div className={classes.button_shadow}></div>
+      </div>
+    );
   }
 
   return <button>{children}</button>;

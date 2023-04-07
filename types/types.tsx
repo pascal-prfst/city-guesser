@@ -7,3 +7,8 @@ export type ButtonProps = {
   type?: string;
   disabled?: boolean;
 };
+
+export type Score = {
+  name: string;
+  score: number;
+};

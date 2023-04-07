@@ -1,0 +1,36 @@
+.score_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.score_entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.pagination_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  gap: 1.25rem;
+}
+
+.pagination_container a:hover {
+  cursor: pointer;
+}
+
+.active_page {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-content: center;
+  background-color: var(--grey);
+  color: var(--black);
+  border-radius: 50%;
+}
