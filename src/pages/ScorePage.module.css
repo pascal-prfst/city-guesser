@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -19,5 +20,18 @@
 }
 
 .actions_container {
+  display: flex;
+  gap: 2rem;
   margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .scorepage_container {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .scorepage_container h1 {
+    font-size: 6rem;
+  }
 }

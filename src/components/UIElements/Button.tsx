@@ -15,7 +15,12 @@ function Button({ children, to, onClick, inverted, disabled }: ButtonProps) {
     );
   }
 
-  return <button>{children}</button>;
+  return (
+    <div className={classes.button_container}>
+      <button className={classes.button}>{children}</button>
+      <div className={classes.button_shadow}></div>
+    </div>
+  );
 }
 
 export default Button;

@@ -48,17 +48,19 @@ function Pagination({ itemsPerPage, items }: PaginationProps) {
   return (
     <div className={classes.score_content}>
       <ItemList scoreData={currentItems} />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel=">>"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
-        marginPagesDisplayed={1}
-        pageCount={pageCount}
-        previousLabel="<<"
-        className={classes.pagination_container}
-        activeClassName={classes.active_page}
-      />
+      {itemsPerPage > 7 && (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">>"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={1}
+          marginPagesDisplayed={1}
+          pageCount={pageCount}
+          previousLabel="<<"
+          className={classes.pagination_container}
+          activeClassName={classes.active_page}
+        />
+      )}
     </div>
   );
 }

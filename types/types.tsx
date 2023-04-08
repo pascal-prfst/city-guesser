@@ -12,3 +12,9 @@ export type Score = {
   name: string;
   score: number;
 };
+
+export type City = {
+  name: string;
+  lang: number;
+  lat: number;
+};
