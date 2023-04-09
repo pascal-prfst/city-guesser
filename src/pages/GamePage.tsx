@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
 
 import classes from "./GamePage.module.css";
@@ -38,11 +38,14 @@ function GamePage() {
         </div>
         <p className={classes.question}>Wo liegt Amsterdam?</p>
         <div className={classes.map_container}>
-          <MapContainer center={center} zoom={4}>
+          <MapContainer center={center} zoom={4} maxZoom={7} minZoom={3}>
             <TileLayer
-              url="https://api.maptiler.com/maps/1ada3e5b-2438-4b2a-8cee-ca8c6092fba4/?key=UFx36x9pigH1s4GHxJ4W#3.1/51.37807/31.90746"
-              attribution='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+              url="https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false"
+              attribution='Map data © <a href="https://arcgisonline.com">Arcgis Online</a>'
             />
+            <Marker position={[53.55, 9.9937]}>
+              <Popup>Hamburg</Popup>
+            </Marker>
           </MapContainer>
         </div>
         <div className={classes.actions_container}>
