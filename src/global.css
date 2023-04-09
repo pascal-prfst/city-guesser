@@ -13,7 +13,7 @@ html {
 }
 
 #root {
-  height: 100dvh;
+  height: 100%;
 }
 
 :root {
@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  height: 100dvh;
+  height: 100%;
   padding: 3rem 1.5rem;
   color: var(--black);
   background-color: var(--white);
