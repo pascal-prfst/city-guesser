@@ -15,7 +15,7 @@
   transform: translate(0.35rem, 0.35rem);
   background-color: var(--black);
   border-radius: 0.35rem;
-  transition: all 250ms;
+  transition: all 175ms;
 }
 
 .button {
@@ -46,4 +46,5 @@
 
 .button_container:hover .button {
   filter: brightness(1.03);
+  cursor: pointer;
 }
