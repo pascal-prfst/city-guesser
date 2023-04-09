@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import classes from "./Button.module.css";
-import { ButtonProps } from "../../../types/types";
+import { ButtonProps } from "../../types/types";
 
 function Button({ children, to, onClick, inverted, disabled }: ButtonProps) {
   if (to) {

@@ -2,7 +2,7 @@ import ReactPaginate from "react-paginate";
 import { useState } from "react";
 
 import classes from "./Pagination.module.css";
-import { Score } from "../../../types/types";
+import { Score } from "../../types/types";
 
 type ItemListProps = {
   scoreData: Score[];
