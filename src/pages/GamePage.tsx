@@ -40,7 +40,7 @@ function GamePage() {
         <div className={classes.map_container}>
           <MapContainer center={center} zoom={4}>
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url="https://api.maptiler.com/maps/1ada3e5b-2438-4b2a-8cee-ca8c6092fba4/?key=UFx36x9pigH1s4GHxJ4W#3.1/51.37807/31.90746"
               attribution='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
             />
           </MapContainer>
