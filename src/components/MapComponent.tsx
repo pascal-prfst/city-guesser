@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
+import { calculateDistance } from "../utils/helper-functions";
+import { Icon } from "leaflet";
 
-// Compontent that handles the card click and get coordinates
-type MapEventProps = {
+type MapEventComponentProps = {
   clickHandler: (lat: number, lng: number) => void;
 };
 
-function MapEventComponent({ clickHandler }: MapEventProps) {
+// Compontent that handles the card click and get coordinates
+function MapEventComponent({ clickHandler }: MapEventComponentProps) {
   const map = useMapEvents({
     click: event => {
       clickHandler(event.latlng.lat, event.latlng.lng);
@@ -17,12 +19,42 @@ function MapEventComponent({ clickHandler }: MapEventProps) {
   return null;
 }
 
-function MapComponent() {
+type MapComponentProps = {
+  markerPlaced: boolean;
+  city:
+    | {
+        name: string;
+        lat: number;
+        long: number;
+      }
+    | undefined;
+  getDistance: (distance: number) => void;
+};
+
+// Map Component
+function MapComponent({ markerPlaced, city, getDistance }: MapComponentProps) {
   const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(null);
+  const [distance, setDistance] = useState(0);
+
   const center: LatLngExpression = [54.526, 15.2551];
+
+  useEffect(() => {
+    if (markerPlaced) {
+      getDistance(distance);
+    }
+  }, [markerPlaced]);
+
+  // custom Marker
+  const customMarker = new Icon({
+    iconUrl: "images/marker.png",
+    iconSize: [30, 30],
+    iconAnchor: [10, 30],
+  });
 
   function handleMapClick(lat: number, lng: number) {
     setMarkerPosition([lat, lng]);
+    const calcDistance = calculateDistance(lat, lng, 53.55, 9.9937);
+    setDistance(calcDistance);
   }
 
   return (
@@ -32,14 +64,8 @@ function MapComponent() {
         url="https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false"
         attribution='Map data © <a href="https://arcgisonline.com">Arcgis Online</a>'
       />
-      <Marker position={[53.55, 9.9937]}>
-        <Popup>Hamburg</Popup>
-      </Marker>
-      {markerPosition && (
-        <Marker position={markerPosition}>
-          <Popup>Du</Popup>
-        </Marker>
-      )}
+      {markerPlaced && <Marker position={[53.55, 9.9937]}></Marker>}
+      {markerPosition && <Marker icon={customMarker} position={markerPosition}></Marker>}
     </MapContainer>
   );
 }

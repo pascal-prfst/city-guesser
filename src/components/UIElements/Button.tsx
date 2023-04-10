@@ -17,7 +17,9 @@ function Button({ children, to, onClick, inverted, disabled }: ButtonProps) {
 
   return (
     <div className={classes.button_container}>
-      <button className={classes.button}>{children}</button>
+      <button onClick={onClick} className={classes.button}>
+        {children}
+      </button>
       <div className={classes.button_shadow}></div>
     </div>
   );
