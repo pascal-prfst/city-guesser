@@ -37,7 +37,7 @@ function GamePage() {
   async function selectRandomCity() {
     const randomNum = Math.floor(Math.random() * cityData.length);
     const response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${cityData[randomNum].capitalCity}&limit=1&appid=db4da4cf573027c1713e12f5bcda8729`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${cityData[randomNum].capitalCity}&limit=1&appid=db4da4cf573027c1713e12f5bcda8729`
     );
     const data = await response.json();
     const foundCity = {
