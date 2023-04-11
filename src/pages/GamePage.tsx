@@ -7,6 +7,7 @@ import Overlay from "../components/UIElements/Overlay";
 import Modal from "../components/UIElements/Modal";
 import MapComponent from "../components/MapComponent";
 import { City } from "../types/types";
+import { capitalCities } from "../data/capitalCities.json";
 
 function GamePage() {
   const [distanceContingent, setDistanceContingent] = useState(1500);
@@ -14,20 +15,38 @@ function GamePage() {
   const [foundCities, setFoundCities] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [markerPlaced, setMarkerPlaced] = useState(false);
-  const [cityData, setCityData] = useState();
-  const [usedCity, setUsedCity] = useState<City | undefined>();
+  const [cityData, setCityData] = useState(capitalCities);
+  const [usedCity, setUsedCity] = useState<City>();
   const [infoMessage, setInfoMessage] = useState("");
+
+  useEffect(() => {
+    selectRandomCity();
+  }, []);
 
   // gamelogic
   useEffect(() => {
     if (distance < 50 && markerPlaced) {
       setFoundCities(prevCities => prevCities + 1);
     }
-
     if (distanceContingent < 0) {
       setIsModalOpen(true);
     }
   }, [markerPlaced]);
+
+  // select a random city and fetch the coordinates
+  async function selectRandomCity() {
+    const randomNum = Math.floor(Math.random() * cityData.length);
+    const response = await fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${cityData[randomNum].capitalCity}&limit=1&appid=db4da4cf573027c1713e12f5bcda8729`
+    );
+    const data = await response.json();
+    const foundCity = {
+      capitalCity: data[0].name,
+      lat: data[0].lat,
+      long: data[0].lon,
+    };
+    setUsedCity(foundCity);
+  }
 
   function closeModal() {
     setIsModalOpen(false);
@@ -56,7 +75,7 @@ function GamePage() {
             <p>{foundCities} Städte</p>
           </div>
         </div>
-        <p className={classes.question}>Wo liegt Amsterdam?</p>
+        <p className={classes.question}>Wo liegt {usedCity && usedCity.capitalCity}?</p>
         <div className={classes.map_container}>
           <MapComponent markerPlaced={markerPlaced} city={usedCity} getDistance={getTheDistance} />
         </div>

@@ -14,7 +14,7 @@ export type Score = {
 };
 
 export type City = {
-  name: string;
+  capitalCity: string;
   lat: number;
   long: number;
 };

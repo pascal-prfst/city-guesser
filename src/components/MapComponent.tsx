@@ -23,7 +23,7 @@ type MapComponentProps = {
   markerPlaced: boolean;
   city:
     | {
-        name: string;
+        capitalCity: string;
         lat: number;
         long: number;
       }
