@@ -64,7 +64,9 @@ function MapComponent({ markerPlaced, city, getDistance }: MapComponentProps) {
         url="https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?blankTile=false"
         attribution='Map data © <a href="https://arcgisonline.com">Arcgis Online</a>'
       />
-      {markerPlaced && <Marker icon={customMarker} position={[53.55, 9.9937]}></Marker>}
+      {markerPlaced && city && (
+        <Marker icon={customMarker} position={[city.lat, city.long]}></Marker>
+      )}
       {markerPosition && <Marker icon={customMarker} position={markerPosition}></Marker>}
     </MapContainer>
   );
