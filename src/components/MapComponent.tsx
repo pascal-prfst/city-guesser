@@ -53,8 +53,10 @@ function MapComponent({ markerPlaced, city, getDistance }: MapComponentProps) {
 
   function handleMapClick(lat: number, lng: number) {
     setMarkerPosition([lat, lng]);
-    const calcDistance = calculateDistance(lat, lng, city.lat, city.long);
-    setDistance(calcDistance);
+    if (city) {
+      const calcDistance = calculateDistance(lat, lng, city.lat, city.long);
+      setDistance(calcDistance);
+    }
   }
 
   return (
