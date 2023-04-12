@@ -41,6 +41,8 @@ function MapComponent({ markerPlaced, city, getDistance }: MapComponentProps) {
   useEffect(() => {
     if (markerPlaced) {
       getDistance(distance);
+    } else if (!markerPlaced) {
+      setMarkerPosition(null);
     }
   }, [markerPlaced]);
 

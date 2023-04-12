@@ -23,15 +23,14 @@ function GamePage() {
     selectRandomCity();
   }, []);
 
-  // gamelogic
   useEffect(() => {
-    if (distance < 50 && markerPlaced) {
-      setFoundCities(prevCities => prevCities + 1);
+    if (distance !== 0 && distance < 50) {
+      setFoundCities(prev => prev + 1);
+      setInfoMessage(`Distanz: ${distance.toFixed(0)}km. Du bekommst einen Punkt.`);
+    } else if (distance > 50) {
+      setInfoMessage(`Distanz: ${distance.toFixed(0)}km. Du bekommst leider keinen Punkt.`);
     }
-    if (distanceContingent < 0) {
-      setIsModalOpen(true);
-    }
-  }, [markerPlaced]);
+  }, [distance]);
 
   // select a random city and fetch the coordinates
   async function selectRandomCity() {
@@ -56,6 +55,12 @@ function GamePage() {
     setMarkerPlaced(prev => !prev);
   }
 
+  function getNextCity() {
+    setCityData(prev => prev.filter(city => city.capitalCity !== usedCity?.capitalCity));
+    setMarkerPlaced(false);
+    selectRandomCity();
+  }
+
   function getTheDistance(distance: number) {
     setDistance(distance);
     setDistanceContingent(prevDistance => prevDistance - distance);
@@ -75,7 +80,9 @@ function GamePage() {
             <p>{foundCities} Städte</p>
           </div>
         </div>
-        <p className={classes.question}>Wo liegt {usedCity && usedCity.capitalCity}?</p>
+        <p className={classes.question}>
+          {!markerPlaced ? `Wo liegt ${usedCity && usedCity.capitalCity}?` : infoMessage}
+        </p>
         <div className={classes.map_container}>
           <MapComponent markerPlaced={markerPlaced} city={usedCity} getDistance={getTheDistance} />
         </div>
@@ -83,7 +90,7 @@ function GamePage() {
           {!markerPlaced ? (
             <Button onClick={placedMarkerHandler}>PLATZIEREN</Button>
           ) : (
-            <Button onClick={placedMarkerHandler}>NÄCHSTE STADT</Button>
+            <Button onClick={getNextCity}>NÄCHSTE STADT</Button>
           )}
         </div>
       </div>
